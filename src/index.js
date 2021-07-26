@@ -1,7 +1,8 @@
+require('dotenv').config({ path: __dirname + '/.env' });
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const TOKEN = 'ODY5MjYwODc4NzExNzcxMTQ3.YP7oRw.SSD-7qKJtUWCOhaagfMtov9J5R0';
+const token = process.env['DISCORD_TOKEN'];
 
 client.on('ready', () => {
   console.log("i'm on bitch");
@@ -19,6 +20,6 @@ client.on('message', (msg) => {
   }
 });
 
-client.login(TOKEN);
+client.login(token);
 
 // link to invite bot: https://discord.com/oauth2/authorize?client_id=869260878711771147&scope=bot&permissions=8
