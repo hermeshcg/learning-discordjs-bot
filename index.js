@@ -1,12 +1,13 @@
 require('dotenv').config({ path: __dirname + '/.env' });
 const Discord = require('discord.js');
+const ytdl = require('ytdl-core');
 const client = new Discord.Client();
 
 const token = process.env['DISCORD_TOKEN'];
 
-const prefix = '"';
+const prefix = ',';
 
-const servers = {
+const servidores = {
   server: {
     connection: null,
     dispatcher: null,
@@ -29,17 +30,31 @@ client.on('message', async (msg) => {
   }
 
   //commands
-  if (msg.content === prefix + 'play') {
-    servers.server.connection = await msg.member.voice.channel.join();
-    servers.server.connection.play('./teste.mp3');
+  if (msg.content === prefix + 'join') {
+    servidores.server.connection = await msg.member.voice.channel.join();
+  }
+
+  if (msg.content === prefix + 'pepeta') {
+    servidores.server.connection.play('./pepeta.mp3');
   }
 
   if (msg.content === prefix + 'cavalo') {
-    servers.server.connection = await msg.member.voice.channel.join();
-    servers.server.connection.play('./cavalo.mp3');
+    servidores.server.connection.play('./cavalo.mp3');
+  }
+
+  if (msg.content.startsWith(prefix + 'play')) {
+    let toPlay = msg.content.slice(6);
+    if (ytdl.validateURL(toPlay)) {
+      servidores.server.dispatcher = servidores.server.connection.play(
+        ytdl(toPlay)
+      );
+    } else {
+      msg.reply(`${toPlay} is not a valid URL`);
+    }
   }
 });
 
 client.login(token);
 
 // link to invite bot: https://discord.com/oauth2/authorize?client_id=869260878711771147&scope=bot&permissions=8
+// where i stopped https://www.youtube.com/watch?v=PnN0ORWiwMc
