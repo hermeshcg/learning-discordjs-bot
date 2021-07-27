@@ -34,8 +34,16 @@ client.on('message', async (msg) => {
     servidores.server.connection = await msg.member.voice.channel.join();
   }
 
-  if (msg.content === prefix + 'pepeta') {
-    servidores.server.connection.play('./pepeta.mp3');
+  if (msg.content === prefix + 'pepeta1') {
+    servidores.server.connection.play('./pepeta1.mp3');
+  }
+
+  if (msg.content === prefix + 'pepeta2') {
+    servidores.server.connection.play('./pepeta2.mp3');
+  }
+
+  if (msg.content === prefix + 'pepeta3') {
+    servidores.server.connection.play('./pepeta3.mp3');
   }
 
   if (msg.content === prefix + 'cavalo') {
